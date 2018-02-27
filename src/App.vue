@@ -4,7 +4,7 @@
       <div class="todo-wrap">
         <TodoHeader :addTodo="addTodo" />
         <TodoMain :todos="todos" :deleteTodo="deleteTodo"/>
-        <TodoFooter/>
+        <TodoFooter :todos="todos" :selectAll="selectAll" :deleteComputed="deleteComputed"/>
       </div>
     </div>
   </div>
@@ -32,6 +32,15 @@
         //删除todo
         deleteTodo (index) {
         this.todos. splice(index,1)
+        },
+        //全选或者全不选
+        selectAll(check){
+          this.todos.forEach(todo =>todo.completed = check)
+        },
+        //删除完成的
+        deleteComputed (){
+        //过滤产生新的数组并更新
+       this.todos = this.todos.filter(todo=>!todo.completed)
         }
       },
        components:{

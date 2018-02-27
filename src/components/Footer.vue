@@ -1,12 +1,12 @@
 <template>
   <div class="todo-footer">
     <label>
-      <input type="checkbox"/>
+      <input type="checkbox" v-model="allComplete"/>
     </label>
     <span>
-      <span>已完成0</span> / 全部2
+      <span>已完成{{completSize}}</span> / 全部{{todos.length}}
     </span>
-    <button class="btn btn-danger">清除已完成任务</button>
+    <button class="btn btn-danger" v-show="completSize> 0 "  @click="deleteComputed">清除已完成任务</button>
   </div>
 </template>
 
@@ -17,6 +17,21 @@
         selectAll:Function,
         deleteComputed: Function
       },
+      computed:{
+        completSize(){
+          return this.todos.reduce((preToal,todo)=>preToal+(todo.completed?1:0),0)
+        },
+        allComplete:{
+          get () {
+            return this.completSize ===this.todos.length && this.todos.length>0
+          },
+          set (value) { //value是boolean类型
+            //对所有 todos进行全选或者全不选
+            this.selectAll(value)
+
+          }
+        }
+      }
 
     }
 </script>
