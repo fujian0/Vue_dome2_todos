@@ -2,9 +2,9 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <TodoHeader/>
+        <TodoHeader :addTodo="addTodo" />
+        <TodoMain :todos="todos" :deleteTodo="deleteTodo"/>
         <TodoFooter/>
-        <TodoMain :todos="todos"/>
       </div>
     </div>
   </div>
@@ -24,10 +24,20 @@
         ]
       }
     },
+      methods: {
+      //添加todo
+      addTodo (todo){
+        this.todos.unshift(todo)
+      },
+        //删除todo
+        deleteTodo (index) {
+        this.todos. splice(index,1)
+        }
+      },
        components:{
          TodoHeader: Header,
-         TodoFooter: Footer,
-         TodoMain: Main
+         TodoMain: Main,
+         TodoFooter: Footer
        }
 
     }
